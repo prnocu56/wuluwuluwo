@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Clicker Simulator</title>
+<style>
+:root{--bg:#070a12;--panel:#11182a;--line:#28334b;--text:#f7f9ff;--muted:#9da8bc;--accent:#7d8cff;--accent2:#a66cff;--good:#6ef2a6}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at 50% 0,rgba(125,140,255,.16),transparent 34%),linear-gradient(#090d18,#05070d 72%);color:var(--text)}button{font:inherit;cursor:pointer}.app{width:min(100%,560px);margin:auto;min-height:100vh;padding:14px 14px 90px}.top{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;padding:10px 0 14px;background:linear-gradient(rgba(7,10,18,.98),rgba(7,10,18,.8),transparent)}.brand{display:flex;gap:10px;align-items:center}.logo{width:42px;height:42px;border-radius:14px;background:radial-gradient(circle at 35% 30%,#fff 0 5%,#aab4ff 10%,#7d8cff 30%,#6b49c7 62%,#261a4a);box-shadow:0 0 28px rgba(125,140,255,.55)}h1{font-size:18px;margin:0}.brand small{color:var(--muted);font-weight:700}.icon{width:42px;height:42px;border:1px solid var(--line);border-radius:14px;background:#11182a;color:white}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat,.panel{background:linear-gradient(#151d31,#0c111e);border:1px solid var(--line);border-radius:19px;padding:13px;box-shadow:0 18px 60px rgba(0,0,0,.38)}.stat span{display:block;color:var(--muted);font-size:12px;font-weight:800}.stat strong{display:block;font-size:24px;margin-top:3px}.stat small{color:var(--good);font-weight:800}.core-zone{min-height:390px;position:relative;display:grid;place-items:center}.ring{position:absolute;width:310px;height:310px;border:1px solid rgba(125,140,255,.2);border-radius:50%;animation:ring 4s ease-in-out infinite}.ring.r2{width:250px;height:250px;animation-delay:-1.3s}.ring.r3{width:190px;height:190px;animation-delay:-2.6s}@keyframes ring{50%{transform:scale(1.05);opacity:.5}}.core{position:relative;width:180px;height:180px;border:0;border-radius:50%;background:radial-gradient(circle at 36% 30%,#fff 0 3%,#e9ecff 7%,#aeb8ff 20%,#7d8cff 42%,#764bd9 68%,#22163f);box-shadow:0 0 0 12px rgba(125,140,255,.06),0 0 45px rgba(125,140,255,.72),0 0 100px rgba(166,108,255,.46),inset -16px -20px 34px rgba(14,6,35,.44);transition:.08s;touch-action:manipulation}.core:active,.core.hit{transform:scale(.93);filter:brightness(1.25)}.label{position:absolute;bottom:26px;color:var(--muted);font-weight:800}.pet-orbit{position:absolute;width:270px;height:270px;animation:orbit 9s linear infinite;pointer-events:none}.pet-orbit span{position:absolute;left:50%;top:0;transform:translateX(-50%);font-size:34px}@keyframes orbit{to{transform:rotate(360deg)}}.production{display:flex;justify-content:space-between;gap:12px}.production span{display:block;color:var(--muted);font-size:12px;font-weight:800}.progress{height:9px;background:#080b13;border:1px solid #222b40;border-radius:99px;overflow:hidden;margin-top:10px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}.page{display:none}.page.active{display:block}.panel{margin-top:10px}.panel h2{font-size:17px;margin:0 0 12px}.shop{display:grid;gap:10px}.item{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px;background:#0d1322;border:1px solid var(--line);border-radius:17px}.item-icon{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:#18213a;font-size:27px}.item h3{font-size:14px;margin:0 0 4px}.item p{font-size:11px;color:var(--muted);margin:0}.level{display:inline-block;margin-top:5px;color:var(--good);font-size:11px;font-weight:900}.buy{border:0;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border-radius:13px;padding:9px 11px;font-weight:900}.buy:disabled{opacity:.4}.pets{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.pet{background:#0d1322;border:1px solid var(--line);border-radius:18px;padding:13px;text-align:center}.pet.equipped{outline:2px solid var(--accent)}.pet .emo{font-size:42px}.pet h3{font-size:14px;margin:5px 0}.pet p{font-size:11px;color:var(--muted);min-height:30px}.pet button{width:100%;border:0;border-radius:12px;padding:9px;background:#202a45;color:white;font-weight:900}.pet button.buyPet{background:linear-gradient(135deg,var(--accent),var(--accent2))}.rows{display:grid;gap:8px}.row{display:flex;justify-content:space-between;gap:12px;padding:12px;border-radius:14px;background:#0d1322;border:1px solid var(--line)}.row span{color:var(--muted)}.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,560px);display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:rgba(7,10,18,.94);border-top:1px solid var(--line);backdrop-filter:blur(16px);z-index:30}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:13px;font-size:11px;font-weight:850}.tab b{display:block;font-size:20px}.tab.active{background:#171f34;color:white}.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:grid;place-items:end center;padding:16px;z-index:100}.modal.hidden{display:none}.modal-card{width:min(100%,530px);background:#101626;border:1px solid var(--line);border-radius:24px;padding:17px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h2{margin:0}.setting{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%) translateY(20px);background:white;color:#080b13;padding:11px 15px;border-radius:14px;font-weight:900;opacity:0;transition:.2s;z-index:200}.toast.show{opacity:1;transform:translateX(-50%)}.float{position:fixed;pointer-events:none;font-weight:1000;font-size:20px;z-index:99;animation:float .8s ease-out forwards}@keyframes float{to{transform:translate(-50%,-90px) scale(1.2);opacity:0}}.particle{position:fixed;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 12px #9ba7ff;z-index:90;animation:burst .65s ease-out forwards}@keyframes burst{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
+@media(max-width:390px){.core-zone{min-height:350px}.core{width:158px;height:158px}.ring{width:270px;height:270px}.ring.r2{width:220px;height:220px}.item{grid-template-columns:46px 1fr}.buy{grid-column:2;width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo"></div><div><h1>Clicker Simulator</h1><small>ClicLigt çekirdeği</small></div></div><button id="settingsBtn" class="icon">⚙</button></header>
+<section id="home" class="page active">
+<div class="stats"><div class="stat"><span>ClicPoit</span><strong id="points">0</strong><small id="power">+1 / tıklama</small></div><div class="stat"><span>ClicMony</span><strong id="money">0</strong><small>Manuel olarak dönüştür</small></div></div>
+<div class="core-zone"><div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div><div id="orbit" class="pet-orbit"></div><button id="core" class="core"></button><div class="label">ClicLigt'a dokun</div></div>
+<div class="panel"><div class="production"><div><span>Saniyelik üretim</span><strong id="perSecond">0 ClicPoit/sn</strong></div><div style="text-align:right"><span>Dönüşüm oranı</span><strong id="convertRate">2 ClicPoit = 1 ClicMony</strong></div></div><button id="convertBtn" class="buy" style="width:100%;margin-top:12px;padding:12px">Convert</button></div>
+</section>
+<section id="market" class="page"><div class="panel"><h2>Market</h2><div id="shop" class="shop"></div></div></section>
+<section id="pets" class="page"><div class="panel"><h2>Petler</h2><div id="petGrid" class="pets"></div></div></section>
+<section id="stats" class="page"><div class="panel"><h2>İstatistikler</h2><div id="rows" class="rows"></div></div></section>
+</div>
+<nav class="tabs"><button class="tab active" data-page="home"><b>✨</b>Ana Sayfa</button><button class="tab" data-page="market"><b>🛒</b>Market</button><button class="tab" data-page="pets"><b>🐾</b>Petler</button><button class="tab" data-page="stats"><b>📊</b>İstatistik</button></nav>
+<div id="settings" class="modal hidden"><div class="modal-card"><div class="modal-head"><h2>Ayarlar</h2><button id="close" class="icon">×</button></div><div class="setting"><div><strong>Titreşim</strong><div style="color:var(--muted);font-size:12px">Tıklamada kısa titreşim</div></div><input id="vibration" type="checkbox" checked></div><div class="setting"><div><strong>Animasyonlar</strong><div style="color:var(--muted);font-size:12px">Parçacık ve yükselen yazılar</div></div><input id="animations" type="checkbox" checked></div><div class="setting"><div><strong>Oyunu sıfırla</strong></div><button id="reset" class="buy">↺ Sıfırla — 150C ClicMony</button></div></div></div>
+<div id="toast" class="toast"></div>
+<script>
+const BASE_KEY='clickerSimulatorSave_v1';
+let hubUserId=null;
+let KEY=BASE_KEY+'_guest';
+function safeUserKey(uid){return String(uid||'guest').replace(/[^a-zA-Z0-9_-]/g,'_')}
+function storageKeyFor(uid){return BASE_KEY+'_'+safeUserKey(uid)}
+function switchStorageToUser(uid){
+  const nextUid=uid||null,nextKey=storageKeyFor(nextUid);
+  if(nextKey===KEY)return;
+  save();
+  hubUserId=nextUid;
+  KEY=nextKey;
+  state=load();
+  $('vibration').checked=state.settings.vibration;
+  $('animations').checked=state.settings.animations;
+  renderPets();renderOrbit();update();
+}
+const items=[
+{id:'u1',icon:'👆',name:'Güçlü Tıklama',desc:'Tıklama gücüne +2',base:3,scale:1.120,power:2}
+{id:'u2',icon:'🤖',name:'Auto Clicker',desc:'Saniyede +2 ClicPoit/sn',base:4,scale:1.132,auto:2}
+{id:'u3',icon:'⚡',name:'Kritik Enerji',desc:'Kritik şansına +2%',base:5,scale:1.144,crit:2}
+{id:'u4',icon:'🔮',name:'Mini Reaktör',desc:'Saniyede +3 ClicPoit/sn',base:7,scale:1.156,auto:3}
+{id:'u5',icon:'✌️',name:'İkili Parmak',desc:'Tıklama gücüne +4',base:9,scale:1.168,power:4}
+{id:'u6',icon:'🚀',name:'Turbo Motor',desc:'Saniyede +5 ClicPoit/sn',base:12,scale:1.120,auto:5}
+{id:'u7',icon:'🌟',name:'Altın Dokunuş',desc:'Kritik şansına +2%',base:15,scale:1.132,crit:2}
+{id:'u8',icon:'🏭',name:'Clic Fabrikası',desc:'Saniyede +6 ClicPoit/sn',base:20,scale:1.144,auto:6}
+{id:'u9',icon:'⚛️',name:'Kuantum Parmak',desc:'Tıklama gücüne +8',base:26,scale:1.156,power:8}
+{id:'u10',icon:'☀️',name:'Füzyon Çekirdeği',desc:'Saniyede +9 ClicPoit/sn',base:34,scale:1.168,auto:9}
+{id:'u11',icon:'🍀',name:'Şans Modülü',desc:'Kritik şansına +3%',base:45,scale:1.120,crit:3}
+{id:'u12',icon:'🕳️',name:'Void Motoru',desc:'Saniyede +12 ClicPoit/sn',base:58,scale:1.132,auto:12}
+{id:'u13',icon:'👆',name:'Güçlü Tıklama',desc:'Tıklama gücüne +15',base:77,scale:1.144,power:15}
+{id:'u14',icon:'🤖',name:'Auto Clicker',desc:'Saniyede +17 ClicPoit/sn',base:100,scale:1.156,auto:17}
+{id:'u15',icon:'⚡',name:'Kritik Enerji',desc:'Kritik şansına +4%',base:131,scale:1.168,crit:4}
+{id:'u16',icon:'🔮',name:'Gelişmiş Mini Reaktör',desc:'Saniyede +24 ClicPoit/sn',base:172,scale:1.120,auto:24}
+{id:'u17',icon:'✌️',name:'Gelişmiş İkili Parmak',desc:'Tıklama gücüne +28',base:226,scale:1.132,power:28}
+{id:'u18',icon:'🚀',name:'Gelişmiş Turbo Motor',desc:'Saniyede +33 ClicPoit/sn',base:296,scale:1.144,auto:33}
+{id:'u19',icon:'🌟',name:'Gelişmiş Altın Dokunuş',desc:'Kritik şansına +6%',base:387,scale:1.156,crit:6}
+{id:'u20',icon:'🏭',name:'Gelişmiş Clic Fabrikası',desc:'Saniyede +46 ClicPoit/sn',base:507,scale:1.168,auto:46}
+{id:'u21',icon:'⚛️',name:'Gelişmiş Kuantum Parmak',desc:'Tıklama gücüne +55',base:665,scale:1.120,power:55}
+{id:'u22',icon:'☀️',name:'Gelişmiş Füzyon Çekirdeği',desc:'Saniyede +65 ClicPoit/sn',base:871,scale:1.132,auto:65}
+{id:'u23',icon:'🍀',name:'Gelişmiş Şans Modülü',desc:'Kritik şansına +8%',base:1140,scale:1.144,crit:8}
+{id:'u24',icon:'🕳️',name:'Gelişmiş Void Motoru',desc:'Saniyede +90 ClicPoit/sn',base:1494,scale:1.156,auto:90}
+{id:'u25',icon:'👆',name:'Gelişmiş Güçlü Tıklama',desc:'Tıklama gücüne +106',base:1957,scale:1.168,power:106}
+{id:'u26',icon:'🤖',name:'Gelişmiş Auto Clicker',desc:'Saniyede +125 ClicPoit/sn',base:2564,scale:1.120,auto:125}
+{id:'u27',icon:'⚡',name:'Gelişmiş Kritik Enerji',desc:'Kritik şansına +11%',base:3359,scale:1.132,crit:11}
+{id:'u28',icon:'🔮',name:'Gelişmiş Mini Reaktör',desc:'Saniyede +175 ClicPoit/sn',base:4400,scale:1.144,auto:175}
+{id:'u29',icon:'✌️',name:'Gelişmiş İkili Parmak',desc:'Tıklama gücüne +206',base:5764,scale:1.156,power:206}
+{id:'u30',icon:'🚀',name:'Gelişmiş Turbo Motor',desc:'Saniyede +243 ClicPoit/sn',base:7551,scale:1.168,auto:243}
+{id:'u31',icon:'🌟',name:'İleri Altın Dokunuş',desc:'Kritik şansına +15%',base:9891,scale:1.120,crit:15}
+{id:'u32',icon:'🏭',name:'İleri Clic Fabrikası',desc:'Saniyede +338 ClicPoit/sn',base:12958,scale:1.132,auto:338}
+{id:'u33',icon:'⚛️',name:'İleri Kuantum Parmak',desc:'Tıklama gücüne +399',base:16975,scale:1.144,power:399}
+{id:'u34',icon:'☀️',name:'İleri Füzyon Çekirdeği',desc:'Saniyede +471 ClicPoit/sn',base:22237,scale:1.156,auto:471}
+{id:'u35',icon:'🍀',name:'İleri Şans Modülü',desc:'Kritik şansına +21%',base:29130,scale:1.168,crit:21}
+{id:'u36',icon:'🕳️',name:'İleri Void Motoru',desc:'Saniyede +656 ClicPoit/sn',base:38161,scale:1.120,auto:656}
+{id:'u37',icon:'👆',name:'İleri Güçlü Tıklama',desc:'Tıklama gücüne +774',base:49991,scale:1.132,power:774}
+{id:'u38',icon:'🤖',name:'İleri Auto Clicker',desc:'Saniyede +913 ClicPoit/sn',base:65488,scale:1.144,auto:913}
+{id:'u39',icon:'⚡',name:'İleri Kritik Enerji',desc:'Kritik şansına +28%',base:85789,scale:1.156,crit:28}
+{id:'u40',icon:'🔮',name:'İleri Mini Reaktör',desc:'Saniyede +1272 ClicPoit/sn',base:112383,scale:1.168,auto:1272}
+{id:'u41',icon:'✌️',name:'İleri İkili Parmak',desc:'Tıklama gücüne +1501',base:147222,scale:1.120,power:1501}
+{id:'u42',icon:'🚀',name:'İleri Turbo Motor',desc:'Saniyede +1771 ClicPoit/sn',base:192861,scale:1.132,auto:1771}
+{id:'u43',icon:'🌟',name:'İleri Altın Dokunuş',desc:'Kritik şansına +38%',base:252648,scale:1.144,crit:38}
+{id:'u44',icon:'🏭',name:'İleri Clic Fabrikası',desc:'Saniyede +2466 ClicPoit/sn',base:330969,scale:1.156,auto:2466}
+{id:'u45',icon:'⚛️',name:'İleri Kuantum Parmak',desc:'Tıklama gücüne +2910',base:433569,scale:1.168,power:2910}
+{id:'u46',icon:'☀️',name:'Üstün Füzyon Çekirdeği',desc:'Saniyede +3433 ClicPoit/sn',base:567975,scale:1.120,auto:3433}
+{id:'u47',icon:'🍀',name:'Üstün Şans Modülü',desc:'Kritik şansına +52%',base:744048,scale:1.132,crit:52}
+{id:'u48',icon:'🕳️',name:'Üstün Void Motoru',desc:'Saniyede +4781 ClicPoit/sn',base:974703,scale:1.144,auto:4781}
+{id:'u49',icon:'👆',name:'Üstün Güçlü Tıklama',desc:'Tıklama gücüne +5641',base:1276860,scale:1.156,power:5641}
+{id:'u50',icon:'🤖',name:'Üstün Auto Clicker',desc:'Saniyede +6657 ClicPoit/sn',base:1672687,scale:1.168,auto:6657}
+{id:'u51',icon:'⚡',name:'Üstün Kritik Enerji',desc:'Kritik şansına +70%',base:2191220,scale:1.120,crit:70}
+{id:'u52',icon:'🔮',name:'Üstün Mini Reaktör',desc:'Saniyede +9269 ClicPoit/sn',base:2870499,scale:1.132,auto:9269}
+{id:'u53',icon:'✌️',name:'Üstün İkili Parmak',desc:'Tıklama gücüne +10937',base:3760353,scale:1.144,power:10937}
+{id:'u54',icon:'🚀',name:'Üstün Turbo Motor',desc:'Saniyede +12906 ClicPoit/sn',base:4926063,scale:1.156,auto:12906}
+{id:'u55',icon:'🌟',name:'Üstün Altın Dokunuş',desc:'Kritik şansına +96%',base:6453142,scale:1.168,crit:96}
+{id:'u56',icon:'🏭',name:'Üstün Clic Fabrikası',desc:'Saniyede +17970 ClicPoit/sn',base:8453616,scale:1.120,auto:17970}
+{id:'u57',icon:'⚛️',name:'Üstün Kuantum Parmak',desc:'Tıklama gücüne +21204',base:11074237,scale:1.132,power:21204}
+{id:'u58',icon:'☀️',name:'Üstün Füzyon Çekirdeği',desc:'Saniyede +25021 ClicPoit/sn',base:14507250,scale:1.144,auto:25021}
+{id:'u59',icon:'🍀',name:'Üstün Şans Modülü',desc:'Kritik şansına +130%',base:19004498,scale:1.156,crit:130}
+{id:'u60',icon:'🕳️',name:'Üstün Void Motoru',desc:'Saniyede +34839 ClicPoit/sn',base:24895892,scale:1.168,auto:34839}
+{id:'u61',icon:'👆',name:'Plazma Güçlü Tıklama',desc:'Tıklama gücüne +41110',base:32613619,scale:1.120,power:41110}
+{id:'u62',icon:'🤖',name:'Plazma Auto Clicker',desc:'Saniyede +48510 ClicPoit/sn',base:42723841,scale:1.132,auto:48510}
+{id:'u63',icon:'⚡',name:'Plazma Kritik Enerji',desc:'Kritik şansına +177%',base:55968232,scale:1.144,crit:177}
+{id:'u64',icon:'🔮',name:'Plazma Mini Reaktör',desc:'Saniyede +67546 ClicPoit/sn',base:73318383,scale:1.156,auto:67546}
+{id:'u65',icon:'✌️',name:'Plazma İkili Parmak',desc:'Tıklama gücüne +79704',base:96047082,scale:1.168,power:79704}
+{id:'u66',icon:'🚀',name:'Plazma Turbo Motor',desc:'Saniyede +94050 ClicPoit/sn',base:125821678,scale:1.120,auto:94050}
+{id:'u67',icon:'🌟',name:'Plazma Altın Dokunuş',desc:'Kritik şansına +241%',base:164826398,scale:1.132,crit:241}
+{id:'u68',icon:'🏭',name:'Plazma Clic Fabrikası',desc:'Saniyede +130956 ClicPoit/sn',base:215922581,scale:1.144,auto:130956}
+{id:'u69',icon:'⚛️',name:'Plazma Kuantum Parmak',desc:'Tıklama gücüne +154528',base:282858582,scale:1.156,power:154528}
+{id:'u70',icon:'☀️',name:'Plazma Füzyon Çekirdeği',desc:'Saniyede +182343 ClicPoit/sn',base:370544742,scale:1.168,auto:182343}
+{id:'u71',icon:'🍀',name:'Plazma Şans Modülü',desc:'Kritik şansına +328%',base:485413612,scale:1.120,crit:328}
+{id:'u72',icon:'🕳️',name:'Plazma Void Motoru',desc:'Saniyede +253894 ClicPoit/sn',base:635891832,scale:1.132,auto:253894}
+{id:'u73',icon:'👆',name:'Plazma Güçlü Tıklama',desc:'Tıklama gücüne +299595',base:833018299,scale:1.144,power:299595}
+{id:'u74',icon:'🤖',name:'Plazma Auto Clicker',desc:'Saniyede +353522 ClicPoit/sn',base:1091253972,scale:1.156,auto:353522}
+{id:'u75',icon:'⚡',name:'Plazma Kritik Enerji',desc:'Kritik şansına +446%',base:1429542704,scale:1.168,crit:446}
+{id:'u76',icon:'🔮',name:'Kozmik Mini Reaktör',desc:'Saniyede +492244 ClicPoit/sn',base:1872700942,scale:1.120,auto:492244}
+{id:'u77',icon:'✌️',name:'Kozmik İkili Parmak',desc:'Tıklama gücüne +580848',base:2453238234,scale:1.132,power:580848}
+{id:'u78',icon:'🚀',name:'Kozmik Turbo Motor',desc:'Saniyede +685401 ClicPoit/sn',base:3213742086,scale:1.144,auto:685401}
+{id:'u79',icon:'🌟',name:'Kozmik Altın Dokunuş',desc:'Kritik şansına +607%',base:4210002133,scale:1.156,crit:607}
+{id:'u80',icon:'🏭',name:'Kozmik Clic Fabrikası',desc:'Saniyede +954352 ClicPoit/sn',base:5515102794,scale:1.168,auto:954352}
+{id:'u81',icon:'⚛️',name:'Kozmik Kuantum Parmak',desc:'Tıklama gücüne +1126135',base:7224784660,scale:1.120,power:1126135}
+{id:'u82',icon:'☀️',name:'Kozmik Füzyon Çekirdeği',desc:'Saniyede +1328840 ClicPoit/sn',base:9464467905,scale:1.132,auto:1328840}
+{id:'u83',icon:'🍀',name:'Kozmik Şans Modülü',desc:'Kritik şansına +826%',base:12398452956,scale:1.144,crit:826}
+{id:'u84',icon:'🕳️',name:'Kozmik Void Motoru',desc:'Saniyede +1850276 ClicPoit/sn',base:16241973372,scale:1.156,auto:1850276}
+{id:'u85',icon:'👆',name:'Kozmik Güçlü Tıklama',desc:'Tıklama gücüne +2183326',base:21276985117,scale:1.168,power:2183326}
+{id:'u86',icon:'🤖',name:'Kozmik Auto Clicker',desc:'Saniyede +2576325 ClicPoit/sn',base:27872850504,scale:1.120,auto:2576325}
+{id:'u87',icon:'⚡',name:'Kozmik Kritik Enerji',desc:'Kritik şansına +1123%',base:36513434160,scale:1.132,crit:1123}
+{id:'u88',icon:'🔮',name:'Kozmik Mini Reaktör',desc:'Saniyede +3587275 ClicPoit/sn',base:47832598749,scale:1.144,auto:3587275}
+{id:'u89',icon:'✌️',name:'Kozmik İkili Parmak',desc:'Tıklama gücüne +4232984',base:62660704362,scale:1.156,power:4232984}
+{id:'u90',icon:'🚀',name:'Kozmik Turbo Motor',desc:'Saniyede +4994921 ClicPoit/sn',base:82085522714,scale:1.168,auto:4994921}
+{id:'u91',icon:'🌟',name:'Galaktik Altın Dokunuş',desc:'Kritik şansına +1528%',base:107532034755,scale:1.120,crit:1528}
+{id:'u92',icon:'🏭',name:'Galaktik Clic Fabrikası',desc:'Saniyede +6954928 ClicPoit/sn',base:140866965529,scale:1.132,auto:6954928}
+{id:'u93',icon:'⚛️',name:'Galaktik Kuantum Parmak',desc:'Tıklama gücüne +8206815',base:184535724843,scale:1.144,power:8206815}
+{id:'u94',icon:'☀️',name:'Galaktik Füzyon Çekirdeği',desc:'Saniyede +9684042 ClicPoit/sn',base:241741799545,scale:1.156,auto:9684042}
+{id:'u95',icon:'🍀',name:'Galaktik Şans Modülü',desc:'Kritik şansına +2079%',base:316681757403,scale:1.168,crit:2079}
+{id:'u96',icon:'🕳️',name:'Galaktik Void Motoru',desc:'Saniyede +13484060 ClicPoit/sn',base:414853102199,scale:1.120,auto:13484060}
+{id:'u97',icon:'👆',name:'Galaktik Güçlü Tıklama',desc:'Tıklama gücüne +15911191',base:543457563880,scale:1.132,power:15911191}
+{id:'u98',icon:'🤖',name:'Galaktik Auto Clicker',desc:'Saniyede +18775206 ClicPoit/sn',base:711929408683,scale:1.144,auto:18775206}
+{id:'u99',icon:'⚡',name:'Galaktik Kritik Enerji',desc:'Kritik şansına +2829%',base:932627525375,scale:1.156,crit:2829}
+{id:'u100',icon:'🔮',name:'Galaktik Mini Reaktör',desc:'Saniyede +26142596 ClicPoit/sn',base:1221742058241,scale:1.168,auto:26142596}
+{id:'u101',icon:'✌️',name:'Galaktik İkili Parmak',desc:'Tıklama gücüne +30848264',base:1600482096295,scale:1.120,power:30848264}
+{id:'u102',icon:'🚀',name:'Galaktik Turbo Motor',desc:'Saniyede +36400951 ClicPoit/sn',base:2096631546147,scale:1.132,auto:36400951}
+{id:'u103',icon:'🌟',name:'Galaktik Altın Dokunuş',desc:'Kritik şansına +3849%',base:2746587325453,scale:1.144,crit:3849}
+{id:'u104',icon:'🏭',name:'Galaktik Clic Fabrikası',desc:'Saniyede +50684685 ClicPoit/sn',base:3598029396343,scale:1.156,auto:50684685}
+{id:'u105',icon:'⚛️',name:'Galaktik Kuantum Parmak',desc:'Tıklama gücüne +59807928',base:4713418509209,scale:1.168,power:59807928}
+{id:'u106',icon:'☀️',name:'Boyutsal Füzyon Çekirdeği',desc:'Saniyede +70573355 ClicPoit/sn',base:6174578247064,scale:1.120,auto:70573355}
+{id:'u107',icon:'🍀',name:'Boyutsal Şans Modülü',desc:'Kritik şansına +5236%',base:8088697503654,scale:1.132,crit:5236}
+{id:'u108',icon:'🕳️',name:'Boyutsal Void Motoru',desc:'Saniyede +98266339 ClicPoit/sn',base:10596193729787,scale:1.144,auto:98266339}
+{id:'u109',icon:'👆',name:'Boyutsal Güçlü Tıklama',desc:'Tıklama gücüne +115954280',base:13881013786020,scale:1.156,power:115954280}
+{id:'u110',icon:'🤖',name:'Boyutsal Auto Clicker',desc:'Saniyede +136826051 ClicPoit/sn',base:18184128059687,scale:1.168,auto:136826051}
+{id:'u111',icon:'⚡',name:'Boyutsal Kritik Enerji',desc:'Kritik şansına +7124%',base:23821207758190,scale:1.120,crit:7124}
+{id:'u112',icon:'🔮',name:'Boyutsal Mini Reaktör',desc:'Saniyede +190516593 ClicPoit/sn',base:31205782163228,scale:1.132,auto:190516593}
+{id:'u113',icon:'✌️',name:'Boyutsal İkili Parmak',desc:'Tıklama gücüne +224809580',base:40879574633829,scale:1.144,power:224809580}
+{id:'u114',icon:'🚀',name:'Boyutsal Turbo Motor',desc:'Saniyede +265275304 ClicPoit/sn',base:53552242770316,scale:1.156,auto:265275304}
+{id:'u115',icon:'🌟',name:'Boyutsal Altın Dokunuş',desc:'Kritik şansına +9692%',base:70153438029115,scale:1.168,crit:9692}
+{id:'u116',icon:'🏭',name:'Boyutsal Clic Fabrikası',desc:'Saniyede +369369334 ClicPoit/sn',base:91901003818140,scale:1.120,auto:369369334}
+{id:'u117',icon:'⚛️',name:'Boyutsal Kuantum Parmak',desc:'Tıklama gücüne +435855814',base:120390315001763,scale:1.132,power:435855814}
+{id:'u118',icon:'☀️',name:'Boyutsal Füzyon Çekirdeği',desc:'Saniyede +514309860 ClicPoit/sn',base:157711312652310,scale:1.144,auto:514309860}
+{id:'u119',icon:'🍀',name:'Boyutsal Şans Modülü',desc:'Kritik şansına +13185%',base:206601819574526,scale:1.156,crit:13185}
+{id:'u120',icon:'🕳️',name:'Boyutsal Void Motoru',desc:'Saniyede +716125049 ClicPoit/sn',base:270648383642629,scale:1.168,auto:716125049}
+];
+const pets=[
+{id:'p1',emoji:'✨',name:'Mini Işık',desc:'+1 güç, +1/sn',price:60,auto:1,power:1,crit:0}
+{id:'p2',emoji:'🪲',name:'Elektrik Böceği',desc:'+3 güç, +2/sn',price:180,auto:2,power:3,crit:0}
+{id:'p3',emoji:'🐈',name:'Ay Kedisi',desc:'+8 güç, +5/sn',price:500,auto:5,power:8,crit:0}
+{id:'p4',emoji:'🟣',name:'Void Slime',desc:'+15 güç, +8/sn',price:1200,auto:8,power:15,crit:2}
+{id:'p5',emoji:'🐉',name:'Clic Dragon',desc:'+30 güç, +15/sn',price:3500,auto:15,power:30,crit:0}
+{id:'p6',emoji:'🔥',name:'Clic Phoenix',desc:'+55 güç, +25/sn',price:9000,auto:25,power:55,crit:5}
+{id:'p7',emoji:'👁️',name:'Creator Eye',desc:'+90 güç, +45/sn',price:22000,auto:45,power:90,crit:10}
+{id:'p8',emoji:'🦊',name:'Clic Tilkisi',desc:'+140 güç, +70/sn',price:55000,auto:70,power:140,crit:2}
+{id:'p9',emoji:'🦉',name:'Bilge Baykuş',desc:'+220 güç, +110/sn',price:140000,auto:110,power:220,crit:3}
+{id:'p10',emoji:'🦈',name:'Neon Köpekbalığı',desc:'+330 güç, +170/sn',price:350000,auto:170,power:330,crit:4}
+{id:'p11',emoji:'🐺',name:'Void Kurt',desc:'+480 güç, +260/sn',price:900000,auto:260,power:480,crit:5}
+{id:'p12',emoji:'🦄',name:'Kozmik Unicorn',desc:'+680 güç, +400/sn',price:2200000,auto:400,power:680,crit:6}
+{id:'p13',emoji:'🤖',name:'Mega Bot',desc:'+950 güç, +600/sn',price:5500000,auto:600,power:950,crit:7}
+{id:'p14',emoji:'👽',name:'Clic Alien',desc:'+1300 güç, +900/sn',price:14000000,auto:900,power:1300,crit:8}
+{id:'p15',emoji:'☄️',name:'Meteor Pet',desc:'+1800 güç, +1300/sn',price:35000000,auto:1300,power:1800,crit:9}
+{id:'p16',emoji:'🕳️',name:'Kara Delik',desc:'+2400 güç, +1900/sn',price:90000000,auto:1900,power:2400,crit:10}
+{id:'p17',emoji:'⭐',name:'Yıldız Muhafızı',desc:'+3000 güç, +2700/sn',price:20000000000,auto:2700,power:3000,crit:11}
+{id:'p18',emoji:'🌙',name:'Ay Ruhu',desc:'+4000 güç, +3800/sn',price:45000000000,auto:3800,power:4000,crit:12}
+{id:'p19',emoji:'☀️',name:'Güneş Ruhu',desc:'+5500 güç, +5200/sn',price:90000000000,auto:5200,power:5500,crit:13}
+{id:'p20',emoji:'🌌',name:'Galaksi Canavarı',desc:'+7500 güç, +7000/sn',price:180000000000,auto:7000,power:7500,crit:14}
+{id:'p21',emoji:'🌠',name:'Kuyruklu Yıldız',desc:'+10000 güç, +9500/sn',price:350000000000,auto:9500,power:10000,crit:15}
+{id:'p22',emoji:'🌀',name:'Portal Varlığı',desc:'+13500 güç, +12500/sn',price:700000000000,auto:12500,power:13500,crit:16}
+{id:'p23',emoji:'💎',name:'Kristal Golem',desc:'+18000 güç, +16500/sn',price:1400000000000,auto:16500,power:18000,crit:17}
+{id:'p24',emoji:'🐲',name:'Ancient ClicDragon',desc:'+24000 güç, +22000/sn',price:2800000000000,auto:22000,power:24000,crit:18}
+{id:'p25',emoji:'🐙',name:'Clic Kraken',desc:'+32000 güç, +29000/sn',price:5600000000000,auto:29000,power:32000,crit:19}
+{id:'p26',emoji:'🌊',name:'Leviathan',desc:'+42000 güç, +38000/sn',price:11000000000000,auto:38000,power:42000,crit:20}
+{id:'p27',emoji:'🗿',name:'Clic Titan',desc:'+55000 güç, +50000/sn',price:22000000000000,auto:50000,power:55000,crit:21}
+{id:'p28',emoji:'🌌',name:'Cosmic Beast',desc:'+72000 güç, +65000/sn',price:44000000000000,auto:65000,power:72000,crit:22}
+{id:'p29',emoji:'🧿',name:'Dimension Lord',desc:'+95000 güç, +85000/sn',price:88000000000000,auto:85000,power:95000,crit:23}
+{id:'p30',emoji:'⚫',name:'Singularity',desc:'+125000 güç, +110000/sn',price:176000000000000,auto:110000,power:125000,crit:25}
+];
+const base={points:0,money:0,totalClicks:0,totalPoints:0,totalMoney:0,bestClick:0,levels:{power:0,auto:0,double:0,reactor:0,finger2:0,turbo:0,golden:0,factory:0,quantum:0,fusion:0,luck:0,void:0,galaxy:0,time:0,infinity:0},manualPoints:0,manualMoney:0,ownedPets:[],equippedPet:null,lastSave:Date.now(),settings:{vibration:true,animations:true},resetMultiplier:1,resetCount:0};
+const $=id=>document.getElementById(id);let state=load(),saveTimer;items.forEach(i=>{if(state.levels[i.id]==null)state.levels[i.id]=0});state.resetMultiplier=Number(state.resetMultiplier)||1;state.resetCount=Number(state.resetCount)||0;
+function clone(o){return JSON.parse(JSON.stringify(o))}function load(){try{const r=JSON.parse(localStorage.getItem(KEY));return r?{...clone(base),...r,levels:{...base.levels,...r.levels},settings:{...base.settings,...r.settings}}:clone(base)}catch{return clone(base)}}function save(){state.lastSave=Date.now();localStorage.setItem(KEY,JSON.stringify(state))}function queueSave(){clearTimeout(saveTimer);saveTimer=setTimeout(save,200)}
+function fmt(n){if(n<1000)return Math.floor(n).toLocaleString('tr-TR');const u=['B','Mn','Mr','Tr'];let i=-1;while(n>=1000&&i<u.length-1){n/=1000;i++}return n.toLocaleString('tr-TR',{maximumFractionDigits:n<10?2:1})+' '+u[i]}
+function pet(){return pets.find(p=>p.id===state.equippedPet)||null}function clickPower(){let v=1+(state.levels.power||0)+(pet()?.power||0);items.forEach(i=>{if(i.power)v+=i.power*(state.levels[i.id]||0)});return v*(Number(state.resetMultiplier)||1)}
+function auto(){let v=(state.levels.auto||0)+(state.levels.reactor||0)*3+(pet()?.auto||0);items.forEach(i=>{if(i.auto)v+=i.auto*(state.levels[i.id]||0)});return v*(Number(state.resetMultiplier)||1)}
+function crit(){let v=(state.levels.double||0)*3+(pet()?.crit||0);items.forEach(i=>{if(i.crit)v+=i.crit*(state.levels[i.id]||0)});return Math.min(90,v)}
+function toast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout($('toast').t);$('toast').t=setTimeout(()=>$('toast').classList.remove('show'),1600)}
+function addPoints(n,src='auto'){if(n<=0)return;state.points+=n;state.totalPoints+=n;if(src==='click'){state.manualPoints=(state.manualPoints||0)+n;state.bestClick=Math.max(state.bestClick,n)}update();queueSave();queueHubSync()}
+function convertPoints(){const usable=Math.floor(state.points/2)*2;if(usable<2)return toast('Yeterli ClicPoit yok.');const gained=usable/2;state.points-=usable;state.money+=gained;state.manualMoney=(state.manualMoney||0)+gained;state.totalMoney+=gained;update();queueSave();queueHubSync();toast(usable+' ClicPoit → '+gained+' ClicMony')}
+function clickCore(e){let gain=clickPower();if(Math.random()*100<crit())gain*=2;state.totalClicks++;addPoints(gain,'click');$('core').classList.add('hit');setTimeout(()=>$('core').classList.remove('hit'),90);if(state.settings.vibration&&navigator.vibrate)navigator.vibrate(12);if(state.settings.animations){const r=$('core').getBoundingClientRect(),x=e.clientX||r.left+r.width/2,y=e.clientY||r.top+r.height/2;const f=document.createElement('div');f.className='float';f.textContent='+'+gain+' ClicPoit';f.style.left=x+'px';f.style.top=y+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),850);for(let i=0;i<10;i++){const p=document.createElement('i');p.className='particle';p.style.left=x+'px';p.style.top=y+'px';const a=Math.random()*Math.PI*2,d=35+Math.random()*65;p.style.setProperty('--x',Math.cos(a)*d+'px');p.style.setProperty('--y',Math.sin(a)*d+'px');document.body.appendChild(p);setTimeout(()=>p.remove(),700)}}}
+function price(i){return Math.floor(i.base*Math.pow(i.scale,state.levels[i.id]))}function buyItem(id){const i=items.find(x=>x.id===id),p=price(i);if(state.money<p)return toast('Yeterli ClicMony yok.');state.money-=p;state.levels[id]++;toast(i.name+' geliştirildi!');update();queueSave()}
+function buyPet(id){const p=pets.find(x=>x.id===id);if(!state.ownedPets.includes(id)){if(state.money<p.price)return toast('Yeterli ClicMony yok.');state.money-=p.price;state.ownedPets.push(id);state.equippedPet=id;toast(p.name+' alındı!')}else{state.equippedPet=state.equippedPet===id?null:id}renderPets();renderOrbit();update();queueSave()}
+function renderShop(){$('shop').innerHTML=items.map(i=>`<div class="item"><div class="item-icon">${i.icon}</div><div><h3>${i.name}</h3><p>${i.desc}</p><span class="level">Seviye ${state.levels[i.id]}</span></div><button class="buy" data-buy="${i.id}" ${state.money<price(i)?'disabled':''}>${fmt(price(i))} 💠</button></div>`).join('');document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>buyItem(b.dataset.buy))}
+function renderPets(){$('petGrid').innerHTML=pets.map(p=>{const owned=state.ownedPets.includes(p.id),eq=state.equippedPet===p.id;return `<div class="pet ${eq?'equipped':''}"><div class="emo">${p.emoji}</div><h3>${p.name}</h3><p>${p.desc}</p><button class="${owned?'':'buyPet'}" data-pet="${p.id}">${owned?(eq?'Çıkar':'Kuşan'):fmt(p.price)+' 💠'}</button></div>`}).join('');document.querySelectorAll('[data-pet]').forEach(b=>b.onclick=()=>buyPet(b.dataset.pet))}
+function renderOrbit(){$('orbit').innerHTML=pet()?`<span>${pet().emoji}</span>`:''}
+function renderStats(){const opened=items.filter(i=>(state.levels[i.id]||0)>0).map(i=>i.name+' Lv.'+state.levels[i.id]);const petNames=state.ownedPets.map(id=>pets.find(p=>p.id===id)?.name).filter(Boolean);const a=[['Toplam manuel kazanılan ClicPoit',fmt(state.manualPoints||0)],['Toplam ClicPoit',fmt(state.totalPoints)],['Toplam manuel kazanılan ClicMony',fmt(state.manualMoney||0)],['Toplam ClicMony',fmt(state.totalMoney)],['Mevcut ClicPoit',fmt(state.points)],['Mevcut ClicMony',fmt(state.money)],['Toplam tıklama',fmt(state.totalClicks)],['Tıklama gücü',fmt(clickPower())],['Saniyelik üretim',fmt(auto())],['Kritik ihtimali','%'+crit()],['Sıfırlama sayısı',fmt(state.resetCount||0)],['Sıfırlama çarpanı','x'+(Number(state.resetMultiplier)||1).toFixed(2)],['Markette açılanlar',opened.join(', ')||'Yok'],['Petler',petNames.join(', ')||'Yok']];$('rows').innerHTML=a.map(x=>`<div class="row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('')}
+function update(){$('points').textContent=fmt(state.points);$('money').textContent=fmt(state.money);$('power').textContent='+'+fmt(clickPower())+' / tıklama · x'+(Number(state.resetMultiplier)||1).toFixed(2);$('perSecond').textContent=fmt(auto())+' ClicPoit/sn';renderShop();if($('stats').classList.contains('active'))renderStats()}
+function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.page===id));if(id==='market')renderShop();if(id==='pets')renderPets();if(id==='stats')renderStats()}
+$('core').addEventListener('pointerdown',clickCore);document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>show(t.dataset.page));$('settingsBtn').onclick=()=>$('settings').classList.remove('hidden');$('close').onclick=()=>$('settings').classList.add('hidden');$('settings').onclick=e=>{if(e.target===$('settings'))$('settings').classList.add('hidden')};$('vibration').checked=state.settings.vibration;$('animations').checked=state.settings.animations;$('vibration').onchange=e=>{state.settings.vibration=e.target.checked;queueSave()};$('animations').onchange=e=>{state.settings.animations=e.target.checked;queueSave()};$('reset').onclick=()=>{const cost=150;if(state.money<cost)return toast('Sıfırlamak için 150C ClicMony gerekli.');if(!confirm('150C ClicMony harcayıp tüm yükseltme, pet ve ilerlemeyi sıfırlamak istiyor musun?'))return;const nextMultiplier=(Number(state.resetMultiplier)||1)*1.1;const nextCount=(Number(state.resetCount)||0)+1;const oldSettings=clone(state.settings);state=clone(base);state.resetMultiplier=nextMultiplier;state.resetCount=nextCount;state.settings=oldSettings;items.forEach(i=>{if(state.levels[i.id]==null)state.levels[i.id]=0});save();renderPets();renderOrbit();update();queueHubSync();$('settings').classList.add('hidden');toast('Sıfırlama tamamlandı! Çarpan: x'+nextMultiplier.toFixed(2))};
+
+let hubSyncTimer=null;
+function hubStats(){return{manualClicPoit:state.manualPoints||0,totalClicPoit:state.totalPoints||0,manualClicMony:state.manualMoney||0,totalClicMony:state.totalMoney||0,currentClicPoit:state.points||0,currentClicMony:state.money||0,totalClicks:state.totalClicks||0,clickPower:clickPower(),perSecond:auto(),marketUnlocked:items.filter(i=>(state.levels[i.id]||0)>0).map(i=>({id:i.id,name:i.name,level:state.levels[i.id]})),pets:state.ownedPets.map(id=>pets.find(p=>p.id===id)?.name).filter(Boolean),equippedPet:pet()?.name||null,updatedAt:Date.now()}}
+function sendHubStats(){try{const payload={type:'PLATFORM_REBORN_GAME_STATS',game:'clicker',stats:hubStats()};if(window.parent&&window.parent!==window)window.parent.postMessage(payload,'*');if(window.opener)window.opener.postMessage(payload,'*');localStorage.setItem('hubland_clicker_stats_'+safeUserKey(hubUserId),JSON.stringify(payload.stats))}catch(e){console.warn(e)}}
+function queueHubSync(){clearTimeout(hubSyncTimer);hubSyncTimer=setTimeout(sendHubStats,500)}
+window.addEventListener('message',e=>{
+  const d=e.data||{};
+  if(d.type==='HUBLAND_AUTH_CONTEXT'){
+    switchStorageToUser(d.uid||null);
+    sendHubStats();
+  }
+  if(d.type==='PLATFORM_REBORN_REQUEST_STATS')sendHubStats();
+});
+$('convertBtn').onclick=convertPoints;
+try{if(window.parent&&window.parent!==window)window.parent.postMessage({type:'HUBLAND_REQUEST_AUTH_CONTEXT'},'*')}catch(_){}
+
+const secs=Math.min(14400,Math.max(0,(Date.now()-(state.lastSave||Date.now()))/1000)),offline=Math.floor(secs*auto());if(offline){addPoints(offline,'offline');toast('Çevrimdışı üretim: +'+fmt(offline)+' ClicPoit')}renderPets();renderOrbit();update();setInterval(()=>{if(auto()>0)addPoints(auto(),'auto')},1000);setInterval(()=>{save();sendHubStats()},5000);window.addEventListener('beforeunload',save);document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});
+</script>
+</body>
+</html>
